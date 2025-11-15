@@ -54,4 +54,27 @@ public class Produto {
                 ", quantidade=" + quantidade +
                 '}';
     }
+
+    public void atualizarPreco(double novoPreco){
+        this.setPreco(novoPreco);
+    }
+
+    public void reporEstoque(int qtd){
+        if (qtd <= 0) {
+            throw new IllegalArgumentException("Quantidade nao pode ser zero");
+        }else if(qtd <= this.quantidade){
+            throw new IllegalArgumentException("Quantidade nao pode menor que o estoque atual (" + this.quantidade + ")");
+        }else {
+            this.quantidade += qtd;
+        }
+    }
+
+    public void vender(int qtd){
+        if (this.quantidade - qtd <=0 ){
+            throw new IllegalArgumentException("Estoque insuficente para verder " + qtd);
+        }else{
+            this.quantidade -= qtd;
+        }
+    }
+
 }
