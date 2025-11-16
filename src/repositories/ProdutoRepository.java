@@ -37,7 +37,7 @@ public class ProdutoRepository {
         return existente;
     }
 
-    public void Delete(Integer id) {
-        produtos.remove(id);
+    public boolean delete(Integer id) {
+        return produtos.remove(id);
     }
 }
