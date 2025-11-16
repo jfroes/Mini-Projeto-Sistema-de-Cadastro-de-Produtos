@@ -9,7 +9,8 @@ public class Produto {
     public Produto(){
     }
 
-    public Produto(String nome, Double preco, Integer quantidade) {
+    public Produto(Integer id, String nome, Double preco, Integer quantidade) {
+        this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;

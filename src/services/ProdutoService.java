@@ -15,7 +15,7 @@ public class ProdutoService {
     }
 
     public ProdutoDTO insert(ProdutoDTO dto){
-        Produto produto = new Produto(dto.getNome(), dto.getPreco(), dto.getQuantidade());
+        Produto produto = new Produto(null, dto.getNome(), dto.getPreco(), dto.getQuantidade());
         produto = repository.save(produto);
 
         return new ProdutoDTO(produto);
@@ -31,5 +31,13 @@ public class ProdutoService {
         Produto produto = repository.findById(id).get();
 
         return new ProdutoDTO(produto);
+    }
+
+    public ProdutoDTO update(ProdutoDTO dto){
+        Produto produto = new Produto(dto.getId(), dto.getNome(), dto.getPreco(), dto.getQuantidade());
+        System.out.println(produto);
+        produto = repository.update(produto);
+
+        return  new ProdutoDTO(produto);
     }
 }
