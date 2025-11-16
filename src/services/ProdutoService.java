@@ -7,6 +7,7 @@ import services.exceptions.DuplicatedResourceException;
 import services.exceptions.ResourceNotFoundExeception;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ProdutoService {
 
@@ -39,15 +40,20 @@ public class ProdutoService {
             Produto produto = repository.findById(id).get();
 
             return new ProdutoDTO(produto);
-        }catch (IndexOutOfBoundsException e){
+        }catch (IndexOutOfBoundsException | NoSuchElementException e){
             throw new ResourceNotFoundExeception("Recurso não encontrado");
         }
     }
 
     public ProdutoDTO update(ProdutoDTO dto){
         try {
+            if (repository.findAll().stream().anyMatch(p -> p.getNome().equalsIgnoreCase(dto.getNome())) &&
+                    repository.findAll().stream().noneMatch(p -> p.getId().equals(dto.getId()))
+            ){
+                throw  new DuplicatedResourceException("Já existe um recurso com este nome");
+            }
             Produto produto = new Produto(dto.getId(), dto.getNome(), dto.getPreco(), dto.getQuantidade());
-            System.out.println(produto);
+
             produto = repository.update(produto);
 
             return new ProdutoDTO(produto);
@@ -57,8 +63,10 @@ public class ProdutoService {
     }
 
     public void delete(Integer id){
-        if(!repository.delete(id)){
-            throw new ResourceNotFoundExeception("recurso não encontrado");
+        try{
+            repository.delete(id);
+        }catch (NoSuchElementException e){
+            throw new ResourceNotFoundExeception("Recurso não encontrado");
         }
         repository.delete(id);
     }

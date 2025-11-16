@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Produto {
     private Integer id;
     private String nome;
@@ -80,4 +82,16 @@ public class Produto {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

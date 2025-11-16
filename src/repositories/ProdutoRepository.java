@@ -24,11 +24,11 @@ public class ProdutoRepository {
     }
 
     public Optional<Produto> findById(Integer id) {
-        return produtos.stream().filter(produto -> produto.getId() == id).findFirst();
+        return produtos.stream().filter(produto -> produto.getId().equals(id)).findFirst();
     }
 
     public Produto update(Produto produto) {
-        Produto existente = produtos.get(produto.getId());
+        Produto existente = findById(produto.getId()).get();
 
         existente.setNome(produto.getNome());
         existente.setQuantidade(produto.getQuantidade());
@@ -37,7 +37,7 @@ public class ProdutoRepository {
         return existente;
     }
 
-    public boolean delete(Integer id) {
-        return produtos.remove(id);
+    public void delete(Integer id) {
+        produtos.removeIf(p -> p.getId().equals(id));
     }
 }
