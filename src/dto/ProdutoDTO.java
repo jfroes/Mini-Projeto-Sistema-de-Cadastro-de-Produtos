@@ -40,4 +40,14 @@ public class ProdutoDTO {
     public Integer getQuantidade() {
         return quantidade;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + getId() +
+                ", nome='" + getNome() + '\'' +
+                ", preco=" + getPreco() +
+                ", quantidade=" + getQuantidade() +
+                '}';
+    }
 }

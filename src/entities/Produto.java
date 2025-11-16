@@ -1,8 +1,7 @@
 package entities;
 
 public class Produto {
-    private static Integer GENERATED_ID = 1;
-    private Integer id = 0;
+    private Integer id;
     private String nome;
     private Double preco;
     private Integer quantidade;
@@ -11,7 +10,6 @@ public class Produto {
     }
 
     public Produto(String nome, Double preco, Integer quantidade) {
-        this.id = GENERATED_ID++;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
@@ -19,6 +17,10 @@ public class Produto {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
